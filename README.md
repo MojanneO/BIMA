@@ -1,7 +1,7 @@
 
 # Time-Series to Image Conversion
 
-This script processes time-series data from CSV files and generates various visual representations, including time-series plots, Gramian Angular Fields (GAF), Markov Transition Fields (MTF), Recurrence Plots (RP) and Grayscale Replication Image(gs). The generated images are saved in specified directories.
+This script processes time-series data from CSV files and generates various visual representations, including time-series plots, Gramian Angular Fields (GAF), Markov Transition Fields (MTF), Recurrence Plots (RP), and Grayscale Replication Images (GS). The generated images are saved in specified directories.
 
 ## Features
 
@@ -9,13 +9,13 @@ This script processes time-series data from CSV files and generates various visu
 - **Gramian Angular Field (GAF)**: Converts time-series data into both GADF and GASF images using summation and difference methods.
 - **Markov Transition Field (MTF)**: Represents the transition matrix of binned time-series data as an image.
 - **Recurrence Plot (RP)**: Visualizes the recurrence of states within a time-series.
-- **Gray Scale Image (GS)**: Converts normalized data into a grayscale image by replicating datapoints.
+- **Grayscale Image (GS)**: Converts normalized data into a grayscale image by replicating data points.
 
-For sparse sensors, only gs and time series line plots are generated, for sensors showing variations MTF, RP, GASF, GADF and time-series line plots are generated.
+For sparse sensors, only GS and time-series line plots are generated. For sensors showing variations, MTF, RP, GASF, GADF, and time-series line plots are generated.
 
 ## Prerequisites
 
-Ensure you have the following Python packages installed:
+Ensure you have Python installed and the following Python packages:
 
 - `numpy`
 - `pandas`
@@ -23,7 +23,7 @@ Ensure you have the following Python packages installed:
 - `Pillow`
 - `pyts`
 
-You can install the required packages using `pip`:
+You can install the required packages using pip:
 
 \`\`\`bash
 pip install numpy pandas matplotlib Pillow pyts
@@ -33,14 +33,14 @@ pip install numpy pandas matplotlib Pillow pyts
 
 ### Command Line Execution
 
-You can run the script from the command line by providing two directory paths as arguments: one for saving the output images and another for locating the input CSV files. The csv directory should contain the preprocessed and synchronized csv files of all sensors.
+You can run the script from the command line by providing two directory paths as arguments: one for saving the output images and another for locating the input CSV files. The CSV directory should contain the preprocessed and synchronized CSV files of all sensors.
 
 \`\`\`bash
 python process_time_series.py /path/to/output/directory /path/to/csv/directory
 \`\`\`
 
-- \`/path/to/output/directory\`: The directory where the generated images will be saved.
-- \`/path/to/csv/directory\`: The directory containing the CSV files to be processed.
+- `/path/to/output/directory`: The directory where the generated images will be saved.
+- `/path/to/csv/directory`: The directory containing the CSV files to be processed.
 
 ### Example
 
@@ -49,13 +49,13 @@ python process_time_series.py ./output ./data
 \`\`\`
 
 In this example:
-- \`./output\` is the directory where the processed images will be saved.
-- \`./data\` is the directory containing the CSV files.
 
-## CSV File Format
+- `./output` is the directory where the processed images will be saved.
+- `./data` is the directory containing the CSV files.
 
-- The script processes CSV files where the time-series value is stored in the second column of each CSV file(first column reserved for TIMESTAMP).
-- The script assumes the CSV files are named in a specific manner corresponding to certain parameters defined in the script.
+### CSV File Format
+
+The script processes CSV files where the time-series value is stored in the second column of each CSV file (the first column is reserved for `TIMESTAMP`). The script assumes the CSV files are named in a specific manner corresponding to certain parameters defined in the script.
 
 ## Script Overview
 
@@ -69,20 +69,62 @@ In this example:
 
 ## Customization
 
-- You can customize the segmentation size, overlap, and normalization bounds by modifying the script where parameters are defined.
-- You can also add or remove CSV files to process by editing the \`csv_filenames\` list in the \`main\` function.
-- Fine-Tuning for Sensors
+### Segmentation and Normalization
 
-The script supports fine-tuning of processing parameters for each sensor. This includes:
+You can customize the segmentation size, overlap, and normalization bounds by modifying the script where parameters are defined:
 
-- Normalization Bounds: Adjust the lower and upper bounds for normalizing data, which is critical for accurate image generation.
-- Number of Bins (n_bins): Define the number of bins used in Markov Transition Fields, which controls the resolution of the MTF images.
-- Threshold Values (threshold): Set threshold values for Recurrence Plots to control the sensitivity of state recurrences.
+- **Segmentation Size**: Controls the size of the time-series chunks processed at a time.
+- **Overlap**: Defines the amount of overlap between segments.
+- **Normalization Bounds**: Adjust the lower and upper bounds for normalizing data, which is critical for accurate image generation.
+
+### Adding or Removing CSV Files
+
+You can add or remove CSV files to process by editing the `csv_filenames` list in the main function.
+
+### Fine-Tuning for Sensors
+
+The script supports fine-tuning of processing parameters for each sensor, including:
+
+- **Normalization Bounds**: Adjust the bounds for each sensor to ensure accurate image generation.
+- **Number of Bins (`n_bins`)**: Define the number of bins used in Markov Transition Fields, which controls the resolution of the MTF images.
+- **Threshold Values (`threshold`)**: Set threshold values for Recurrence Plots to control the sensitivity of state recurrences.
 
 ## Error Handling
 
-The script will raise a \`FileNotFoundError\` if any of the specified CSV files are not found in the provided directory.
+The script will raise a `FileNotFoundError` if any of the specified CSV files are not found in the provided directory.
 
 ## Memory Management
 
-The script uses explicit memory management practices to ensure that large datasets are handled efficiently.
+The script uses explicit memory management practices to ensure that large datasets are handled efficiently. The garbage collector is manually invoked to free up memory during processing.
+
+## Expected Output
+
+After running the script, you should see the following output directories within your specified output directory:
+
+- **gs/**: Contains grayscale replication images.
+- **ts/**: Contains time-series line plots.
+- **gasf/**: Contains Gramian Angular Summation Field images.
+- **gadf/**: Contains Gramian Angular Difference Field images.
+- **rp/**: Contains Recurrence Plot images.
+- **mtf/**: Contains Markov Transition Field images.
+
+Each directory will contain images corresponding to the processed chunks of your time-series data.
+
+## Example Parameters
+
+Here’s a table summarizing the impact of different parameters you might adjust:
+
+| Parameter       | Description                                                             | Impact                                   |
+|-----------------|-------------------------------------------------------------------------|------------------------------------------|
+| `chunk_size`    | Size of the time-series chunks                                          | Larger chunks capture more data per image|
+| `overlap`       | Amount of overlap between consecutive chunks                            | Higher overlap can capture more continuity between segments|
+| `n_bins`        | Number of bins for MTF                                                  | Higher bins result in higher resolution images|
+| `threshold`     | Sensitivity threshold for RP                                            | Lower threshold captures finer recurrences|
+
+## Links and References
+
+- Learn more about [Gramian Angular Fields (GAF)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.GramianAngularField.html).
+- Explore [Markov Transition Fields (MTF)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.MarkovTransitionField.html).
+- Understand [Recurrence Plots (RP)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.RecurrencePlot.html).
+
+
