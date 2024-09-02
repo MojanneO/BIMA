@@ -99,7 +99,7 @@ The script uses explicit memory management practices to ensure that large datase
 
 ## Expected Output
 
-After running the script, you should see the following output directories within your specified output directory:
+After running the script, you should see a set of directories for each sensors within your specified output directory, and each directory should have the following subdirectories:
 
 - **gs/**: Contains grayscale replication images.
 - **ts/**: Contains time-series line plots.
