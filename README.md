@@ -124,7 +124,7 @@ Here’s a table summarizing the impact of different parameters you might adjust
 ## Links and References
 
 - Learn more about [Gramian Angular Fields (GAF)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.GramianAngularField.html).
-- Explore [Markov Transition Fields (MTF)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.MarkovTransitionField.html).
-- Understand [Recurrence Plots (RP)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.RecurrencePlot.html).
+- Learn more about [Markov Transition Fields (MTF)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.MarkovTransitionField.html).
+- Learn more about [Recurrence Plots (RP)](https://pyts.readthedocs.io/en/stable/generated/pyts.image.RecurrencePlot.html).
 
 
