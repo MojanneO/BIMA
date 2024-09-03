@@ -33,25 +33,13 @@ pip install numpy pandas matplotlib Pillow pyts
 
 ### Command Line Execution
 
-You can run the script from the command line by providing two directory paths as arguments: one for saving the output images and another for locating the input CSV files. The CSV directory should contain the preprocessed and synchronized CSV files of all sensors.
+You can run the code by running the jupyter cell dedicated to the csv to image conversion procedure; you need to provide 2 paths which are describe below:
 
-\`\`\`bash
-python process_time_series.py /path/to/output/directory /path/to/csv/directory
-\`\`\`
+- base_dir : The directory where the generated images will be saved.
+- csv_base_dir: The directory containing the CSV files to be processed.
 
-- `/path/to/output/directory`: The directory where the generated images will be saved.
-- `/path/to/csv/directory`: The directory containing the CSV files to be processed.
+Before doing so, you can run the first cell to modify the POINT\_MESS function according to our need
 
-### Example
-
-\`\`\`bash
-python process_time_series.py ./output ./data
-\`\`\`
-
-In this example:
-
-- `./output` is the directory where the processed images will be saved.
-- `./data` is the directory containing the CSV files.
 
 ### CSV File Format
 
